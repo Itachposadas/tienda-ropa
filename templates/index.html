@@ -1,10 +1,29 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Ropa</title>
 
-{% block content %}
-<div class="jumbotron bg-light p-5 rounded">
-    <h1 class="display-4">¡Bienvenido a Tienda de Ropa!</h1>
-    <p class="lead">Sistema en línea funcionando correctamente</p>
-    <hr class="my-4">
-    <p>El sistema está listo para usar.</p>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container text-center mt-5">
+    <h1>Proyecto Tienda de Ropa</h1>
+
+    <p class="lead">
+        Flask funciona correctamente.
+    </p>
+
+    <button class="btn btn-primary">
+        Mi primera aplicación
+    </button>
 </div>
-{% endblock %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
