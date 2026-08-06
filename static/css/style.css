@@ -1,3 +1,445 @@
-body{
-    background:#f4f4f4;
+/* ============================================================
+   TIENDA DE ROPA - DASHBOARD PROFESIONAL
+   Paleta: #1E293B | #2563EB | #F8FAFC | #FFFFFF | #334155
+   ============================================================ */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #F1F5F9;
+    font-family: 'Inter', sans-serif;
+    color: #334155;
+    min-height: 100vh;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+    background: #1E293B !important;
+    padding: 14px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
+    color: #FFFFFF !important;
+}
+
+.navbar-brand i {
+    color: #60A5FA;
+    margin-right: 8px;
+}
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+.main-container {
+    padding: 28px 0;
+}
+
+/* ============================================================
+   TÍTULO
+   ============================================================ */
+.page-title {
+    font-weight: 700;
+    color: #1E293B;
+    margin-bottom: 24px;
+    font-size: 1.75rem;
+}
+
+.page-title i {
+    color: #2563EB;
+    margin-right: 8px;
+}
+
+/* ============================================================
+   CARD PRINCIPAL
+   ============================================================ */
+.card-admin {
+    background: #FFFFFF;
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    padding: 32px;
+    transition: box-shadow 0.3s ease;
+}
+
+.card-admin:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================================
+   PESTAÑAS (TABS)
+   ============================================================ */
+.nav-tabs {
+    border-bottom: 2px solid #E2E8F0;
+    gap: 6px;
+    padding-bottom: 0;
+}
+
+.nav-tabs .nav-link {
+    color: #64748B;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    margin-right: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+    background: transparent;
+}
+
+.nav-tabs .nav-link i {
+    margin-right: 6px;
+    font-size: 1rem;
+}
+
+.nav-tabs .nav-link:hover {
+    background: #E2E8F0;
+    color: #1E293B;
+    border: none;
+}
+
+.nav-tabs .nav-link.active {
+    background: #2563EB;
+    color: #FFFFFF;
+    border: none;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* ============================================================
+   CONTENIDO DE PESTAÑAS
+   ============================================================ */
+.tab-content {
+    padding-top: 24px;
+}
+
+.tab-pane {
+    animation: fadeIn 0.35s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   TABLAS
+   ============================================================ */
+.table {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background: #1E293B;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 16px;
+    border: none;
+}
+
+.table tbody td {
+    padding: 12px 16px;
+    vertical-align: middle;
+    border-bottom: 1px solid #F1F5F9;
+    font-size: 0.9rem;
+}
+
+.table tbody tr:hover {
+    background: #F8FAFC;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 8px 16px;
+    transition: all 0.25s ease;
+}
+
+.btn-success {
+    background: #16A34A;
+    border: none;
+    box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25);
+}
+
+.btn-success:hover {
+    background: #15803D;
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-outline-warning {
+    color: #D97706;
+    border-color: #D97706;
+}
+
+.btn-outline-warning:hover {
+    background: #D97706;
+    color: #FFFFFF;
+    border-color: #D97706;
+}
+
+.btn-outline-danger {
+    color: #DC2626;
+    border-color: #DC2626;
+}
+
+.btn-outline-danger:hover {
+    background: #DC2626;
+    color: #FFFFFF;
+    border-color: #DC2626;
+}
+
+.btn-outline-info {
+    color: #0891B2;
+    border-color: #0891B2;
+}
+
+.btn-outline-info:hover {
+    background: #0891B2;
+    color: #FFFFFF;
+    border-color: #0891B2;
+}
+
+.btn-outline-secondary {
+    color: #64748B;
+    border-color: #CBD5E1;
+}
+
+.btn-outline-secondary:hover {
+    background: #F1F5F9;
+    color: #334155;
+    border-color: #94A3B8;
+}
+
+.btn-group-sm .btn {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+}
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+.badge {
+    font-weight: 600;
+    font-size: 0.78rem;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+.badge.bg-success {
+    background: #16A34A !important;
+}
+
+.badge.bg-danger {
+    background: #DC2626 !important;
+}
+
+.badge.bg-warning {
+    background: #F59E0B !important;
+    color: #1E293B !important;
+}
+
+.badge.bg-info {
+    background: #0891B2 !important;
+}
+
+.badge.bg-secondary {
+    background: #64748B !important;
+}
+
+/* ============================================================
+   SPINNER
+   ============================================================ */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: #2563EB !important;
+}
+
+/* ============================================================
+   CARDS INTERNAS (FORMULARIOS)
+   ============================================================ */
+.card {
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    border-radius: 14px 14px 0 0 !important;
+    background: #2563EB !important;
+    padding: 16px 24px;
+    font-weight: 600;
+}
+
+.card-body {
+    padding: 24px;
+}
+
+/* ============================================================
+   FORMULARIOS
+   ============================================================ */
+.form-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #475569;
+    margin-bottom: 6px;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1.5px solid #CBD5E1;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ============================================================
+   ALERTAS
+   ============================================================ */
+.alert {
+    border-radius: 10px;
+    font-weight: 500;
+    border: none;
+    padding: 14px 20px;
+}
+
+.alert-danger {
+    background: #FEF2F2;
+    color: #991B1B;
+    border-left: 4px solid #DC2626;
+}
+
+.alert-success {
+    background: #F0FDF4;
+    color: #166534;
+    border-left: 4px solid #16A34A;
+}
+
+.alert-warning {
+    background: #FFFBEB;
+    color: #92400E;
+    border-left: 4px solid #F59E0B;
+}
+
+.alert-info {
+    background: #F0F9FF;
+    color: #075985;
+    border-left: 4px solid #0891B2;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    .card-admin {
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    .page-title {
+        font-size: 1.4rem;
+    }
+
+    .nav-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+    }
+
+    .nav-tabs .nav-link {
+        min-width: 140px;
+        text-align: center;
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+
+    .table thead th,
+    .table tbody td {
+        font-size: 0.78rem;
+        padding: 8px 10px;
+    }
+
+    .btn {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+
+    h4 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .card-admin {
+        padding: 12px;
+    }
+
+    .nav-tabs .nav-link {
+        min-width: 120px;
+        font-size: 0.72rem;
+        padding: 6px 10px;
+    }
+}
+
+/* ============================================================
+   SCROLLBAR ESTILIZADA (opcional)
+   ============================================================ */
+.nav-tabs::-webkit-scrollbar {
+    height: 5px;
+}
+
+.nav-tabs::-webkit-scrollbar-track {
+    background: #F1F5F9;
+    border-radius: 10px;
+}
+
+.nav-tabs::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 10px;
+}
+
+.nav-tabs::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
 }
