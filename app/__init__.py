@@ -122,5 +122,21 @@ def _crear_datos_ejemplo():
     ]
     db.session.add_all(detalles)
     db.session.commit()
+
     
-    print("✅ Datos de ejemplo creados en SQLite.")
+    print("Datos de ejemplo creados en SQLite.")
+    # Crear vista de productos en SQLite
+    from sqlalchemy import text
+    db.session.execute(text("""
+        CREATE VIEW IF NOT EXISTS vista_productos AS
+        SELECT 
+            p.nombre,
+            c.nombre AS categoria,
+            p.precio,
+            p.stock
+        FROM producto p
+        LEFT JOIN categoria c ON p.id_categoria = c.id_categoria
+    """))
+    db.session.commit()
+    
+    print("Datos de ejemplo y vista creados en SQLite.")
