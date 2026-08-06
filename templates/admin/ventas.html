@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4><i class="bi bi-cart-check"></i> Ventas</h4>
+    <button class="btn btn-success btn-sm"
+            hx-get="/admin/ventas/nueva"
+            hx-target="#ventas .tab-content-inner"
+            hx-swap="innerHTML">
+        <i class="bi bi-plus-lg"></i> Nueva Venta
+    </button>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Método de Pago</th>
+                <th>Usuario</th>
+                <th>Detalles</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for v in ventas %}
+            <tr>
+                <td>{{ v.id_venta }}</td>
+                <td>{{ v.fecha.strftime('%d/%m/%Y') if v.fecha else '-' }}</td>
+                <td>${{ "%.2f"|format(v.total) }}</td>
+                <td>
+                    {% if v.metodo_pago == 'Efectivo' %}
+                    <span class="badge bg-success">{{ v.metodo_pago }}</span>
+                    {% elif v.metodo_pago == 'Tarjeta' %}
+                    <span class="badge bg-info">{{ v.metodo_pago }}</span>
+                    {% elif v.metodo_pago == 'Transferencia' %}
+                    <span class="badge bg-warning text-dark">{{ v.metodo_pago }}</span>
+                    {% else %}
+                    <span class="badge bg-secondary">-</span>
+                    {% endif %}
+                </td>
+                <td>{{ v.usuario.nombre_usuario if v.usuario else '-' }}</td>
+                <td><span class="badge bg-info">{{ v.detalles|length }}</span></td>
+                <td>
+                    <div class="btn-group btn-group-sm">
+                        <button class="btn btn-outline-warning"
+                                hx-get="/admin/ventas/editar/{{ v.id_venta }}"
+                                hx-target="#ventas .tab-content-inner"
+                                hx-swap="innerHTML"
+                                title="Editar">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-outline-danger"
+                                hx-post="/admin/ventas/eliminar/{{ v.id_venta }}"
+                                hx-target="#ventas .tab-content-inner"
+                                hx-swap="innerHTML"
+                                hx-confirm="¿Eliminar la venta #{{ v.id_venta }}?"
+                                title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

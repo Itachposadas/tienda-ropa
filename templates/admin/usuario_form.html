@@ -1,0 +1,82 @@
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+            {% if usuario %}
+                <i class="bi bi-pencil"></i> Editar Usuario: {{ usuario.nombre_usuario }}
+            {% else %}
+                <i class="bi bi-plus-lg"></i> Nuevo Usuario
+            {% endif %}
+        </h5>
+    </div>
+    <div class="card-body">
+        <form 
+            hx-post="{% if usuario %}/admin/usuarios/editar/{{ usuario.id_usuario }}{% else %}/admin/usuarios/nuevo{% endif %}"
+            hx-target="#usuarios .tab-content-inner"
+            hx-swap="innerHTML"
+        >
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nombre" class="form-label">Nombre *</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" 
+                           value="{{ usuario.nombre if usuario else '' }}" required maxlength="100">
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="apellido" class="form-label">Apellido *</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" 
+                           value="{{ usuario.apellido if usuario else '' }}" required maxlength="100">
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="correo" class="form-label">Correo Electrónico *</label>
+                    <input type="email" class="form-control" id="correo" name="correo" 
+                           value="{{ usuario.correo if usuario else '' }}" required maxlength="100">
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono" 
+                           value="{{ usuario.telefono if usuario else '' }}" maxlength="20">
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="nombre_usuario" class="form-label">Nombre de Usuario *</label>
+                    <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" 
+                           value="{{ usuario.nombre_usuario if usuario else '' }}" required maxlength="50">
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="rol" class="form-label">Rol *</label>
+                    <select class="form-select" id="rol" name="rol" required>
+                        <option value="">-- Seleccionar rol --</option>
+                        <option value="Administrador" {% if usuario and usuario.rol == 'Administrador' %}selected{% endif %}>Administrador</option>
+                        <option value="Vendedor" {% if usuario and usuario.rol == 'Vendedor' %}selected{% endif %}>Vendedor</option>
+                        <option value="Cliente" {% if usuario and usuario.rol == 'Cliente' %}selected{% endif %}>Cliente</option>
+                    </select>
+                </div>
+                
+                <div class="col-12 mb-3">
+                    <label for="contrasena" class="form-label">
+                        Contraseña {% if usuario %}(dejar vacía para mantener la actual){% else %}*{% endif %}
+                    </label>
+                    <input type="password" class="form-control" id="contrasena" name="contrasena" 
+                           {% if not usuario %}required{% endif %} maxlength="255"
+                           placeholder="{% if usuario %}Nueva contraseña (opcional){% else %}Contraseña{% endif %}">
+                </div>
+            </div>
+            
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-check-lg"></i> 
+                    {% if usuario %}Guardar Cambios{% else %}Crear Usuario{% endif %}
+                </button>
+                <button type="button" class="btn btn-outline-secondary" 
+                        hx-get="/admin/usuarios" 
+                        hx-target="#usuarios .tab-content-inner"
+                        hx-swap="innerHTML">
+                    <i class="bi bi-x-lg"></i> Cancelar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
