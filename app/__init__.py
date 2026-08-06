@@ -68,13 +68,41 @@ def _crear_datos_ejemplo():
     db.session.add_all(prods)
     db.session.commit()
     
-    # Usuarios
+       # Usuarios (10 - 3 con ventas, 7 sin ventas)
     users = [
+        # Usuarios CON ventas
         Usuario(nombre='Juan', apellido='Pérez', correo='juan@example.com', telefono='555-1001', nombre_usuario='juanp', contrasena='12345', rol='Administrador'),
         Usuario(nombre='María', apellido='López', correo='maria@example.com', telefono='555-1002', nombre_usuario='marial', contrasena='12345', rol='Vendedor'),
         Usuario(nombre='Carlos', apellido='García', correo='carlos@example.com', telefono='555-1003', nombre_usuario='carlosg', contrasena='12345', rol='Vendedor'),
+        
+        # Usuarios SIN ventas
+        Usuario(nombre='Ana', apellido='Martínez', correo='ana@example.com', telefono='555-2001', nombre_usuario='anam', contrasena='12345', rol='Vendedor'),
+        Usuario(nombre='Luis', apellido='Hernández', correo='luis@example.com', telefono='555-2002', nombre_usuario='luish', contrasena='12345', rol='Administrador'),
+        Usuario(nombre='Sofía', apellido='Ramírez', correo='sofia@example.com', telefono='555-2003', nombre_usuario='sofiar', contrasena='12345', rol='Vendedor'),
+        Usuario(nombre='Pedro', apellido='Torres', correo='pedro@example.com', telefono='555-2004', nombre_usuario='pedrot', contrasena='12345', rol='Vendedor'),
+        Usuario(nombre='Fernanda', apellido='Ruiz', correo='fernanda@example.com', telefono='555-2005', nombre_usuario='ferruiz', contrasena='12345', rol='Cliente'),
+        Usuario(nombre='Miguel', apellido='Flores', correo='miguel@example.com', telefono='555-2006', nombre_usuario='migf', contrasena='12345', rol='Administrador'),
+        Usuario(nombre='Daniela', apellido='Castro', correo='daniela@example.com', telefono='555-2007', nombre_usuario='danic', contrasena='12345', rol='Cliente'),
     ]
     db.session.add_all(users)
+    db.session.commit()
+    
+    # Ventas (solo 3, asociadas a los primeros 3 usuarios)
+    ventas = [
+        Venta(fecha=datetime(2026, 7, 1), total=499.99, metodo_pago='Efectivo', id_usuario=1),
+        Venta(fecha=datetime(2026, 7, 2), total=899.99, metodo_pago='Tarjeta', id_usuario=2),
+        Venta(fecha=datetime(2026, 7, 3), total=799.99, metodo_pago='Transferencia', id_usuario=3),
+    ]
+    db.session.add_all(ventas)
+    db.session.commit()
+    
+    # Detalles
+    detalles = [
+        DetalleVenta(id_venta=1, id_producto=1, cantidad=1, precio_unitario=499.99, subtotal=499.99),
+        DetalleVenta(id_venta=2, id_producto=2, cantidad=1, precio_unitario=899.99, subtotal=899.99),
+        DetalleVenta(id_venta=3, id_producto=3, cantidad=1, precio_unitario=799.99, subtotal=799.99),
+    ]
+    db.session.add_all(detalles)
     db.session.commit()
     
     # Ventas
