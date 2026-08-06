@@ -20,21 +20,42 @@ def create_app():
         from . import routes
         from . import models
         
-        # Crear tablas si no existen (solo para SQLite)
         if app.config.get('DB_TYPE') == 'produccion':
             db.create_all()
-            # Insertar datos de ejemplo si la BD está vacía
-            from .models import Categoria, Producto, Usuario, Venta, DetalleVenta
+            from .models import Categoria
             if not Categoria.query.first():
                 _crear_datos_ejemplo()
+            else:
+                _crear_vista_sqlite()
 
     return app
+
+
+def _crear_vista_sqlite():
+    """Crear o reemplazar la vista en SQLite si no existe."""
+    from sqlalchemy import text
+    try:
+        db.session.execute(text("""
+            CREATE VIEW IF NOT EXISTS vista_productos AS
+            SELECT 
+                p.nombre,
+                c.nombre AS categoria,
+                p.precio,
+                p.stock
+            FROM producto p
+            LEFT JOIN categoria c ON p.id_categoria = c.id_categoria
+        """))
+        db.session.commit()
+        print("✅ Vista 'vista_productos' verificada/creada.")
+    except Exception as e:
+        print(f"⚠️ Error al crear vista: {e}")
 
 
 def _crear_datos_ejemplo():
     """Insertar datos iniciales en SQLite."""
     from .models import Categoria, Producto, Usuario, Venta, DetalleVenta
     from datetime import datetime
+    from sqlalchemy import text
     
     # Categorías
     cats = [
@@ -68,14 +89,11 @@ def _crear_datos_ejemplo():
     db.session.add_all(prods)
     db.session.commit()
     
-       # Usuarios (10 - 3 con ventas, 7 sin ventas)
+    # Usuarios
     users = [
-        # Usuarios CON ventas
         Usuario(nombre='Juan', apellido='Pérez', correo='juan@example.com', telefono='555-1001', nombre_usuario='juanp', contrasena='12345', rol='Administrador'),
         Usuario(nombre='María', apellido='López', correo='maria@example.com', telefono='555-1002', nombre_usuario='marial', contrasena='12345', rol='Vendedor'),
         Usuario(nombre='Carlos', apellido='García', correo='carlos@example.com', telefono='555-1003', nombre_usuario='carlosg', contrasena='12345', rol='Vendedor'),
-        
-        # Usuarios SIN ventas
         Usuario(nombre='Ana', apellido='Martínez', correo='ana@example.com', telefono='555-2001', nombre_usuario='anam', contrasena='12345', rol='Vendedor'),
         Usuario(nombre='Luis', apellido='Hernández', correo='luis@example.com', telefono='555-2002', nombre_usuario='luish', contrasena='12345', rol='Administrador'),
         Usuario(nombre='Sofía', apellido='Ramírez', correo='sofia@example.com', telefono='555-2003', nombre_usuario='sofiar', contrasena='12345', rol='Vendedor'),
@@ -85,24 +103,6 @@ def _crear_datos_ejemplo():
         Usuario(nombre='Daniela', apellido='Castro', correo='daniela@example.com', telefono='555-2007', nombre_usuario='danic', contrasena='12345', rol='Cliente'),
     ]
     db.session.add_all(users)
-    db.session.commit()
-    
-    # Ventas (solo 3, asociadas a los primeros 3 usuarios)
-    ventas = [
-        Venta(fecha=datetime(2026, 7, 1), total=499.99, metodo_pago='Efectivo', id_usuario=1),
-        Venta(fecha=datetime(2026, 7, 2), total=899.99, metodo_pago='Tarjeta', id_usuario=2),
-        Venta(fecha=datetime(2026, 7, 3), total=799.99, metodo_pago='Transferencia', id_usuario=3),
-    ]
-    db.session.add_all(ventas)
-    db.session.commit()
-    
-    # Detalles
-    detalles = [
-        DetalleVenta(id_venta=1, id_producto=1, cantidad=1, precio_unitario=499.99, subtotal=499.99),
-        DetalleVenta(id_venta=2, id_producto=2, cantidad=1, precio_unitario=899.99, subtotal=899.99),
-        DetalleVenta(id_venta=3, id_producto=3, cantidad=1, precio_unitario=799.99, subtotal=799.99),
-    ]
-    db.session.add_all(detalles)
     db.session.commit()
     
     # Ventas
@@ -122,21 +122,8 @@ def _crear_datos_ejemplo():
     ]
     db.session.add_all(detalles)
     db.session.commit()
-
+    
+    # Crear vista
+    _crear_vista_sqlite()
     
     print("Datos de ejemplo creados en SQLite.")
-    # Crear vista de productos en SQLite
-    from sqlalchemy import text
-    db.session.execute(text("""
-        CREATE VIEW IF NOT EXISTS vista_productos AS
-        SELECT 
-            p.nombre,
-            c.nombre AS categoria,
-            p.precio,
-            p.stock
-        FROM producto p
-        LEFT JOIN categoria c ON p.id_categoria = c.id_categoria
-    """))
-    db.session.commit()
-    
-    print("Datos de ejemplo y vista creados en SQLite.")
