@@ -102,16 +102,15 @@ class VistaProductos(db.Model):
     __tablename__ = 'vista_productos'
     __table_args__ = {'extend_existing': True}
     
-    # Las vistas no tienen primary key real, usamos un identificador único
     nombre = db.Column(db.String(100))
     categoria = db.Column(db.String(100))
     precio = db.Column(db.Float)
     stock = db.Column(db.Integer)
     
-    # SQLAlchemy necesita una primary key, usamos nombre como "clave" virtual
+    # Usamos rowid como clave primaria implícita
     __mapper_args__ = {
-        'primary_key': [nombre]
+        'primary_key': [nombre, categoria]
     }
     
     def __repr__(self):
-        return f'<VistaProductos {self.nombre} - {self.categoria}>'
+        return f'<VistaProductos {self.nombre}>'
